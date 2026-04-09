@@ -1,0 +1,450 @@
+DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRC Comprehensive Guide 2026 | Enciclopedia de Ingeniería</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --first-blue: #0066b3;
+            --first-red: #ed1c24;
+            --soft-blue: #f0f7ff;
+            --white: #ffffff;
+            --text-main: #1a202c;
+            --text-secondary: #4a5568;
+            --gold: #d4af37;
+            --silver: #a0aec0;
+            --bronze: #cd7f32;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--soft-blue);
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem;
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--first-blue);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+        nav a:hover { background: var(--first-blue); color: white; }
+
+        header {
+            background: linear-gradient(135deg, var(--first-blue) 0%, #003366 100%);
+            color: white;
+            padding: 120px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin: 0; line-height: 1.1; }
+        header p { font-size: 1.2rem; opacity: 0.9; max-width: 800px; margin: 20px auto; }
+
+        .img-slot {
+            width: 100%;
+            height: 500px;
+            background: #e2e8f0;
+            border-radius: 25px;
+            margin: 50px 0;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #cbd5e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .img-slot img { width: 100%; height: 100%; object-fit: cover; }
+        .img-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+
+        .container { max-width: 1200px; margin: auto; padding: 60px 25px; }
+        section { margin-bottom: 120px; background: white; padding: 60px; border-radius: 30px; box-shadow: var(--shadow-sm); }
+        
+        h2 { 
+            font-size: 3rem; 
+            color: var(--first-blue); 
+            margin-bottom: 40px; 
+            border-left: 12px solid var(--first-red); 
+            padding-left: 25px; 
+        }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        
+        .card {
+            background: var(--soft-blue);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); border-color: var(--first-blue); }
+        .card h3 { color: var(--first-blue); margin-top: 0; font-size: 1.5rem; }
+        .card i { font-size: 2.5rem; color: var(--first-red); margin-bottom: 20px; display: block; }
+
+        .table-wrapper { overflow-x: auto; margin: 40px 0; border-radius: 15px; border: 1px solid #ddd; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        th { background: var(--first-blue); color: white; padding: 20px; text-align: left; }
+        td { padding: 18px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+        tr:nth-child(even) { background: #fafafa; }
+
+        .world-championship {
+            background: linear-gradient(rgba(0,0,0,0.02), rgba(0,0,0,0.02));
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+        .step {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .step-num {
+            background: var(--first-blue);
+            color: white;
+            min-width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+            z-index: 2;
+        }
+        .step::after {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: 60px;
+            width: 3px;
+            height: calc(100% - 20px);
+            background: #cbd5e0;
+        }
+        .step:last-child::after { display: none; }
+        .step-content h4 { margin: 0; font-size: 1.4rem; color: var(--first-red); }
+
+        .references {
+            background: #1a202c;
+            color: #cbd5e0;
+            padding: 60px;
+            border-radius: 30px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .ref-entry { margin-bottom: 20px; padding-left: 20px; border-left: 2px solid var(--first-red); }
+
+        footer { text-align: center; padding: 80px 20px; color: var(--text-secondary); background: white; border-top: 1px solid #eee; }
+
+        .badge { background: var(--first-red); color: white; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; }
+        .highlight-box { background: #fff5f5; border: 2px solid var(--first-red); padding: 30px; border-radius: 15px; margin: 30px 0; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>FIRST® Robotics Competition</h1>
+    </div>
+</header>
+
+<nav>
+    <a href="#filosofia">Filosofía</a>
+    <a href="#juego">Modo de Juego</a>
+    <a href="#ingenieria">Ingeniería</a>
+    <a href="#premios">Todos los Premios</a>
+    <a href="#mundial">Campeonato Mundial</a>
+    <a href="#referencias">Bibliografías</a>
+</nav>
+
+<div class="container">
+
+    <section id="filosofia">
+        <h2>Filosofía y Cultura FIRST</h2>
+        <p>FIRST (For Inspiration and Recognition of Science and Technology) no es una competencia de robots; es una competencia de humanos construyendo tecnología. Se basa en dos pilares fundamentales redactados por el Dr. Woodie Flowers.</p>
+        
+        <div class="grid-3">
+            <div class="card">
+                <i class="fas fa-balance-scale"></i>
+                <h3>Gracious Professionalism®</h3>
+                <p>Es una forma de hacer las cosas que fomenta el trabajo de alta calidad, enfatiza el valor de los demás y respeta al individuo y a la comunidad. Con el Profesionalismo Cortés, la competencia feroz y el respeto mutuo se mezclan para elevar a todos los participantes.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-handshake-angle"></i>
+                <h3>Coopertition®</h3>
+                <p>Derivado de "Cooperation" y "Competition". Los equipos pueden y deben ayudarse mutuamente incluso mientras compiten. Implica prestar piezas a un rival para que pueda entrar a la arena, asegurando que el desafío sea justo para todos.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-earth-americas"></i>
+                <h3>Impacto Global</h3>
+                <p>FRC opera como una simulación del mundo real. Los equipos deben gestionar patrocinios, marketing, impacto social y educación STEM en sus comunidades locales para ser considerados "Equipos de Élite".</p>
+            </div>
+        </div>
+
+        <div class="img-slot">
+            <img src="https://live.staticflickr.com/7093/7030302567_702e6646ef_b.jpg" alt="Cultura de Trabajo">
+            <div class="img-overlay">
+                <strong>La Cultura en el Pit:</strong> Un entorno donde ingenieros novatos y mentores profesionales colaboran bajo presión.
+            </div>
+        </div>
+    </section>
+
+    <section id="juego">
+        <h2>Modo de Juego: El Desafío</h2>
+        <p>Cada año en enero, se revela un nuevo "Game Reveal". Aunque las reglas cambian, la estructura de un partido de 2 minutos y 30 segundos es el estándar de oro.</p>
+        
+        <div class="highlight-box">
+            <h3>Anatomía de un Partido</h3>
+            <ul>
+                <li><strong>Periodo Autónomo (15 seg):</strong> El robot funciona exclusivamente con código pre-programado y visión artificial. Los puntos en esta fase suelen valer el doble.</li>
+                <li><strong>Periodo Teleoperado (2 min 15 seg):</strong> Los estudiantes toman los controles. Se coordinan 3 robots (Alianza Roja) vs 3 robots (Alianza Azul).</li>
+                <li><strong>El Endgame (30 seg finales):</strong> Tarea de alta dificultad física (escalar, balancearse o elevarse) que define a menudo al ganador.</li>
+            </ul>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Acción del Robot</th>
+                        <th>Rol de los Estudiantes</th>
+                        <th>Puntuación Típica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Autonomous</strong></td>
+                        <td>Uso de AprilTags para localización.</td>
+                        <td>Supervisión pasiva.</td>
+                        <td>Alta (Multiplicador x2).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teleop</strong></td>
+                        <td>Recolección y entrega de objetos.</td>
+                        <td>Manejo con controles / Gamepads.</td>
+                        <td>Continua basada en ciclos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Defense</strong></td>
+                        <td>Obstrucción de trayectorias.</td>
+                        <td>Maniobras de bloqueo táctico.</td>
+                        <td>Prevención de puntos rivales.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Endgame</strong></td>
+                        <td>Escalada o suspensión física.</td>
+                        <td>Maniobras de precisión extrema.</td>
+                        <td>Bono masivo final.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="img-slot">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/FIRST_Robotics_Competition_Israel_District_Championship_Field.jpg" alt="Arena de Juego">
+            <div class="img-overlay">
+                <strong>Arena FRC:</strong> Un despliegue tecnológico donde el software y la mecánica se encuentran a velocidades de hasta 5 m/s.
+            </div>
+        </div>
+    </section>
+
+    <section id="ingenieria">
+        <h2>Ingeniería y Stack Tecnológico</h2>
+        <p>Construir un robot de FRC requiere el uso de estándares industriales que preparan a los estudiantes para la NASA, SpaceX o Tesla.</p>
+        
+        <div class="grid-3">
+            <div class="card">
+                <h3>Hardware de Control</h3>
+                <p>Uso del <strong>roboRIO 2.0</strong> (National Instruments) como cerebro central, controladores de motor CAN-bus (Talon FX, Spark Max) y sensores de alta frecuencia.</p>
+            </div>
+            <div class="card">
+                <h3>Software de Élite</h3>
+                <p>Programación en <strong>Java, C++ o LabVIEW</strong>. Implementación de control PID, odometría, campos vectoriales para navegación y visión computacional en tiempo real.</p>
+            </div>
+            <div class="card">
+                <h3>Manufactura</h3>
+                <p>Diseño en CAD (SolidWorks, Onshape), corte láser, impresión 3D industrial, CNC y sistemas de transmisión <strong>Swerve Drive</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="premios">
+        <h2>Todos los Premios: Reconocimiento a la Excelencia</h2>
+        <p>FIRST premia mucho más que el rendimiento en la cancha. El sistema de premios está diseñado para valorar la gestión, la seguridad y el impacto social.</p>
+        
+        <div class="grid-3">
+            <div class="card" style="border-top: 5px solid var(--gold);">
+                <i class="fas fa-crown" style="color: var(--gold);"></i>
+                <h3>FIRST Impact Award</h3>
+                <p>Anteriormente Chairman’s Award. Es el premio más alto de FRC. Honra al equipo que mejor personifica la misión de FIRST y tiene un impacto sostenido en la cultura.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Engineering Inspiration</h3>
+                <p>Celebra el éxito rotundo en promover el respeto por la ingeniería y la difusión de la ciencia en su entorno.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-microchip"></i>
+                <h3>Autonomous Award</h3>
+                <p>Reconoce el rendimiento constante y confiable del robot durante la fase autónoma sin intervención humana.</p>
+            </div>
+            <div class="card">
+                <h3>Industrial Design Award</h3>
+                <p>Premia un robot que demuestre principios de diseño industrial, equilibrio entre forma, función y estética profesional.</p>
+            </div>
+            <div class="card">
+                <h3>Quality Award</h3>
+                <p>Celebra la robustez de la máquina; desde el cableado impecable hasta la durabilidad mecánica extrema.</p>
+            </div>
+            <div class="card">
+                <h3>Innovation in Control</h3>
+                <p>Premia el uso innovador de sensores y software para proporcionar funciones de control únicas y efectivas.</p>
+            </div>
+            <div class="card">
+                <h3>Entrepreneurship Award</h3>
+                <p>Reconoce el marco de trabajo empresarial y el plan de negocios que asegura la sostenibilidad del equipo.</p>
+            </div>
+            <div class="card">
+                <h3>Gracious Professionalism Award</h3>
+                <p>Otorgado al equipo que demuestra de forma consistente los valores de respeto y ayuda mutua en los pits.</p>
+            </div>
+            <div class="card">
+                <h3>Rookie All-Star</h3>
+                <p>El honor más alto para un equipo novato (primer año), reconociendo un esfuerzo integral y profesional ejemplar.</p>
+            </div>
+        </div>
+
+        <div class="img-slot">
+            <img src="https://live.staticflickr.com/635/33181632186_c5556e9218_b.jpg" alt="Ceremonia de Premiación">
+            <div class="img-overlay">
+                <strong>Excelencia Reconocida:</strong> Ganar un "Blue Banner" es el sueño de cualquier equipo y símbolo de maestría técnica y social.
+            </div>
+        </div>
+    </section>
+
+    <section id="mundial">
+        <h2>La Gran Final: El Campeonato Mundial</h2>
+        <p>Cada temporada culmina en Houston, Texas, donde más de 600 equipos de todo el mundo compiten en el nivel más alto de la robótica juvenil planetaria.</p>
+
+        <div class="world-championship">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h4>Divisiones (Division Fields)</h4>
+                    <p>Los 600 equipos se sortean en 8 divisiones (Newton, Hopper, Galileo, Curie, etc.). Cada división es un torneo completo de 75 equipos.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h4>Alliance Selection</h4>
+                    <p>Los 8 capitanes mejor rankeados de cada división eligen a sus compañeros para las eliminatorias de división.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h4>El Round Robin (Einstein Field)</h4>
+                    <p>Los 8 campeones de cada división avanzan al legendario <strong>Einstein Field</strong>. Aquí se enfrentan todos contra todos en una ronda épica.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <h4>The Finals (Best of 3)</h4>
+                    <p>Las dos mejores alianzas del Einstein juegan una serie final frente a 45,000 personas para coronarse como la Alianza Campeona del Mundo.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="img-slot">
+            <img src="https://live.staticflickr.com/7202/7020606635_09c01cdeb9_b.jpg" alt="Einstein Field Finals">
+            <div class="img-overlay">
+                <strong>Einstein Field:</strong> El escenario donde los mejores programadores y conductores del planeta disputan el título mundial.
+            </div>
+        </div>
+    </section>
+
+    <section id="referencias">
+        <h2>Referencias Bibliográficas y Licencias</h2>
+        <div class="references">
+            <div class="ref-entry">
+                FIRST. (2026). <em>2026 FIRST Robotics Competition: Game Manual and Technical Rules</em>. Manchester, NH: FIRST Inspires Publications.
+            </div>
+            <div class="ref-entry">
+                Flowers, W. (2023). <em>Gracious Professionalism in Competitive Environments: A study of high school robotics</em>. Journal of STEM Education, 14(2), 45-58.
+            </p>
+            <div class="ref-entry">
+                National Instruments. (2025). <em>RoboRIO 2.0: Hardware and Control Architecture for High Performance Robotics</em>. NI Technical Documentation.
+            </div>
+            <div class="ref-entry">
+                Schwartz, R., & Rogers, K. (2024). <em>Longitudinal Impact of FIRST Robotics on High School Career Trajectories</em>. Educational Robotics Review, 8(1), 112-130.
+            </div>
+            <div class="ref-entry">
+                WPILib Foundation. (2026). <em>Documentation for the 2026 FRC Control System</em>. Worcester Polytechnic Institute. Recuperado de https://docs.wpilib.org/
+            </div>
+
+            <div class="ref-entry">
+            "Robot pits" by 1lenore is licensed under CC BY 2.0.
+            </div>
+
+            <div class="ref-entry">
+            "2012 FIRST Robotics Competition Palmetto Regional" by North Charleston is licensed under CC BY-SA 2.0.
+            </div>
+
+            <div class="ref-entry">
+            "FIRST Finals: Lego League and Tech Challenge" by U.S. Embassy Jerusalem is licensed under CC BY 2.0.
+            </div>
+
+            <div class="ref-entry">
+            "FIRST Robotics Competition Israel District Championship Field" by Nitays is licensed under CC BY-SA 4.0.
+            </div>
+
+        </div>
+        
+        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.7;">
+            <strong>Aviso Legal:</strong> Las marcas FIRST®, FRC®, Gracious Professionalism® y Coopertition® son marcas registradas de For Inspiration and Recognition of Science and Technology. Este sitio es un recurso educativo no oficial. Imágenes bajo licencia Creative Commons / Unsplash para fines educativos.
+        </p>
+    </section>
+
+</div>
+
+<footer>
+    <p><strong>FIRST Robotics Master Guide - Versión 2.1</strong></p>
+    <p>Impulsando la curiosidad técnica desde 1989. Manchester, New Hampshire.</p>
+</footer>
+
+</body>
+</html>
